@@ -1,0 +1,16 @@
+{
+  "name": "Colibrí Spa",
+  "short_name": "Colibrí",
+  "description": "Conecta, Libera y Brilla",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0906",
+  "theme_color": "#0b0906",
+  "icons": [
+    {
+      "src": "/logo-colibri.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    }
+  ]
+}
