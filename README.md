@@ -15,6 +15,19 @@ npm run dev
 3. Framework preset: Vite. Build command: `npm run build`. Output: `dist`.
 4. Deploy.
 
+## Música de fondo
+La app tiene una pantalla de bienvenida ("Entrar") que activa música relajante
+en loop — necesaria porque los navegadores bloquean el audio automático hasta
+que hay un clic. Debes colocar tu archivo mp3 en:
+
+```
+public/audio/relaxing-music.mp3
+```
+
+Ver `public/audio/LEEME.txt` para sugerencias de bancos de música libre de
+derechos. Si no agregas el archivo, la app funciona igual, simplemente no
+sonará nada.
+
 ## Datos configurables
 - Número de WhatsApp: `src/App.jsx` → constante `WHATSAPP_NUMBER`.
 - Horario de atención: `src/App.jsx` → inputs `date`/`time` (min/max) y texto en el hero.

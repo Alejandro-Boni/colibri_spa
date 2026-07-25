@@ -1,0 +1,14 @@
+Coloca aquí tu archivo de música relajante con el nombre exacto:
+
+  relaxing-music.mp3
+
+La app lo reproduce en loop apenas el cliente le da clic a "Entrar" en la
+pantalla de bienvenida (los navegadores bloquean el audio automático con
+sonido hasta que hay un clic, así que esta pantalla también cumple esa función).
+
+Sugerencias de música de spa/relax libre de derechos:
+- Pixabay Music (pixabay.com/music) — buscar "spa" o "relaxing"
+- YouTube Audio Library (con licencia "sin atribución requerida")
+- Uppbeat.io (categoría chill/ambient, con cuenta gratuita)
+
+Descarga el mp3, renómbralo a relaxing-music.mp3 y reemplaza este archivo.

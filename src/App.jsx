@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import './App.css'
 
 const WHATSAPP_NUMBER = '573106979485'
@@ -65,6 +65,85 @@ const facials = [
       'Sellado con masaje protector',
     ],
     benefit: 'Poros limpios, reducción de imperfecciones y piel completamente renovada.',
+  },
+]
+
+const waxingFacial = [
+  { id: 'cejas', category: 'depilacion', name: 'Cejas (diseño y depilación)', price: 30000 },
+  { id: 'bozo', category: 'depilacion', name: 'Bozo', price: 15000 },
+  { id: 'menton', category: 'depilacion', name: 'Mentón / Barbilla', price: 15000 },
+  { id: 'patillas', category: 'depilacion', name: 'Patillas', price: 10000 },
+  { id: 'rostro-completo', category: 'depilacion', name: 'Rostro Completo', desc: 'Cejas, bozo, mentón y patillas', price: 40000 },
+]
+
+const waxingIntimate = [
+  { id: 'bikini-clasico', category: 'depilacion', name: 'Bikini Clásico', desc: 'Línea del traje de baño', price: 20000 },
+  { id: 'bikini-brasileno', category: 'depilacion', name: 'Bikini Brasileño / Completo', desc: 'Zona íntima total + zona perianal', price: 50000 },
+]
+
+const waxingBody = [
+  { id: 'axilas', category: 'depilacion', name: 'Axilas', price: 20000 },
+  { id: 'brazos-completos', category: 'depilacion', name: 'Brazos completos', price: 40000 },
+  { id: 'medio-brazo', category: 'depilacion', name: 'Medio brazo', price: 20000 },
+  { id: 'piernas-completas', category: 'depilacion', name: 'Piernas completas', price: 50000 },
+  { id: 'media-pierna', category: 'depilacion', name: 'Media pierna', desc: 'Pantorrilla o muslo', price: 30000 },
+  { id: 'espalda-completa', category: 'depilacion', name: 'Espalda completa', price: 50000 },
+  { id: 'abdomen-pecho', category: 'depilacion', name: 'Abdomen o Pecho', price: 50000 },
+  { id: 'depilacion-completa', category: 'depilacion', name: 'Depilación completa', price: 80000 },
+]
+
+const threading = [
+  { id: 'hilo-facial', category: 'hilo', name: 'Facial completo (con hilo)', price: 60000 },
+]
+
+const experiences = [
+  {
+    id: 'pausa-compartida',
+    category: 'experiencia',
+    name: 'Pausa Compartida',
+    subtitle: 'El regalo perfecto para consentirse juntas',
+    duration: '60 min',
+    price: 170000,
+    priceNote: 'por persona',
+    includes: [
+      'Ritual de bienvenida',
+      'Masaje cráneo facial',
+      'Aromaterapia y música ambiental',
+      'Masaje relajante corporal',
+      'Mascarilla / cuidado facial de hidratación',
+    ],
+  },
+  {
+    id: 'vuelo-amigas-chocoterapia',
+    category: 'experiencia',
+    name: 'Vuelo entre Amigas · Chocoterapia',
+    subtitle: 'Una pausa dulce para desconectarse entre amigas',
+    duration: '~90 min',
+    price: 230000,
+    priceNote: 'por persona',
+    includes: [
+      'Bienvenida dulce y aromaterapia (vainilla, cacao y naranja)',
+      'Masaje relajante corporal de 90 min con aceite de chocolate',
+      'Mascarilla facial nutritiva de cacao',
+    ],
+  },
+  {
+    id: 'duo-colibri',
+    category: 'experiencia',
+    name: 'Dúo Colibrí',
+    subtitle: 'Un viaje sensorial para reconectar en pareja',
+    duration: '90 min',
+    price: 240000,
+    priceNote: 'por persona',
+    includes: [
+      'Aromaterapia personalizada según el estado de ánimo',
+      'Música ambiental suave',
+      'Masaje facial Shiatsu',
+      'Masaje capilar',
+      'Masaje cuerpo completo',
+      'Exfoliación',
+      'Chocolaterapia',
+    ],
   },
 ]
 
@@ -143,12 +222,95 @@ function FacialCard({ service, onSelect, isSelected }) {
   )
 }
 
+function ZoneCard({ service, onSelect, isSelected }) {
+  return (
+    <div className={`zone-card ${isSelected ? 'card--selected' : ''}`}>
+      <div>
+        <p className="zone-name">{service.name}</p>
+        {service.desc && <p className="zone-desc">{service.desc}</p>}
+      </div>
+      <div className="zone-action">
+        <span className="zone-price">{formatPrice(service.price)}</span>
+        <button className="card-btn" onClick={() => onSelect(service)}>
+          {isSelected ? 'Elegido ✓' : 'Elegir'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function ExperienceCard({ service, onSelect, isSelected }) {
+  return (
+    <div className={`card ${isSelected ? 'card--selected' : ''}`}>
+      <h3>{service.name}</h3>
+      {service.subtitle && <p className="card-subtitle">{service.subtitle}</p>}
+      <p className="card-meta">
+        {service.duration ? `${service.duration} · ` : ''}
+        {service.price ? formatPrice(service.price) : 'Consultar valor'}
+        {service.priceNote ? ` (${service.priceNote})` : ''}
+      </p>
+      <ul className="protocol-list">
+        {service.includes.map((step) => (
+          <li key={step}>{step}</li>
+        ))}
+      </ul>
+      <button className="card-btn" onClick={() => onSelect(service)}>
+        {isSelected ? 'Experiencia elegida ✓' : 'Elegir esta experiencia'}
+      </button>
+    </div>
+  )
+}
+
+function EntryGate({ onEnter }) {
+  return (
+    <div className="entry-gate">
+      <img src="/logo-colibri.jpg" alt="Colibrí" className="entry-logo" />
+      <p className="entry-tagline">Conecta, Libera y Brilla</p>
+      <button className="entry-btn" onClick={onEnter}>
+        Entrar
+      </button>
+      <p className="entry-hint">Activa el sonido para vivir la experiencia completa</p>
+    </div>
+  )
+}
+
+function HummingbirdField() {
+  return (
+    <div className="hb-field" aria-hidden="true">
+      <Wing className="hb hb-1" />
+      <Wing className="hb hb-2" />
+      <Wing className="hb hb-3" />
+      <Wing className="hb hb-4" />
+      <Wing className="hb hb-5" />
+    </div>
+  )
+}
+
 export default function App() {
   const [selected, setSelected] = useState(null)
   const [stones, setStones] = useState(false)
   const [form, setForm] = useState({ name: '', phone: '', address: '', date: '', time: '' })
   const [error, setError] = useState('')
   const [sent, setSent] = useState(false)
+  const [entered, setEntered] = useState(false)
+  const [muted, setMuted] = useState(false)
+  const audioRef = useRef(null)
+
+  const handleEnter = () => {
+    setEntered(true)
+    const audio = audioRef.current
+    if (audio) {
+      audio.volume = 0.35
+      audio.play().catch(() => {})
+    }
+  }
+
+  const toggleMute = () => {
+    const audio = audioRef.current
+    if (!audio) return
+    audio.muted = !audio.muted
+    setMuted(audio.muted)
+  }
 
   const total = useMemo(() => {
     if (!selected) return 0
@@ -171,17 +333,17 @@ export default function App() {
     lines.push('¡Hola Colibrí! 🌸 Quiero agendar una experiencia:')
     lines.push('')
     lines.push(`Servicio: ${selected.name}`)
-    lines.push(`Duración: ${selected.duration}`)
+    if (selected.duration) lines.push(`Duración: ${selected.duration}`)
     if (selected.category === 'masaje' && stones) {
       lines.push('Incluye masaje con piedras volcánicas (+' + formatPrice(STONES_PRICE) + ')')
     }
-    lines.push(`Valor: ${formatPrice(total)}`)
+    lines.push(`Valor: ${selected.price ? formatPrice(total) : 'a confirmar'}${selected.priceNote ? ' (' + selected.priceNote + ')' : ''}`)
     lines.push('')
     lines.push(`Fecha: ${form.date}`)
     lines.push(`Hora: ${form.time}`)
     lines.push(`Nombre: ${form.name}`)
     if (form.phone) lines.push(`Teléfono: ${form.phone}`)
-    if (selected.category === 'masaje') lines.push(`Dirección: ${form.address}`)
+    if (selected.category === 'masaje' || selected.category === 'experiencia') lines.push(`Dirección: ${form.address}`)
     lines.push('')
     lines.push('Quedo atent@ a la confirmación ✨')
     return lines.join('\n')
@@ -191,7 +353,7 @@ export default function App() {
     if (!selected) return setError('Elige un vuelo o ritual para continuar.')
     if (!form.date || !form.time) return setError('Elige la fecha y la hora que prefieres.')
     if (!form.name.trim()) return setError('Cuéntanos tu nombre.')
-    if (selected.category === 'masaje' && !form.address.trim())
+    if ((selected.category === 'masaje' || selected.category === 'experiencia') && !form.address.trim())
       return setError('Escribe la dirección para el masaje a domicilio.')
     setError('')
     const message = encodeURIComponent(buildMessage())
@@ -201,10 +363,23 @@ export default function App() {
 
   return (
     <>
+      <audio ref={audioRef} src="/audio/relaxing-music.mp3" loop preload="auto" />
+      <HummingbirdField />
+      {!entered && <EntryGate onEnter={handleEnter} />}
+      {entered && (
+        <button
+          className="sound-toggle"
+          onClick={toggleMute}
+          aria-label={muted ? 'Activar música' : 'Silenciar música'}
+        >
+          {muted ? '🔇' : '🎵'}
+        </button>
+      )}
+
       <header className="hero">
         <div className="hero-glow" />
         <img src="/logo-colibri.jpg" alt="Colibrí — Conecta, Libera y Brilla" className="hero-logo" />
-        <p className="hero-hours">Domingo a domingo · 6:00 a.m. – 9:00 p.m.</p>
+        <p className="hero-hours">Martes a domingo · 7:00 a.m. – 8:00 p.m. · Lunes con cita previa</p>
         <button className="hero-cta" onClick={() => document.getElementById('vuelos').scrollIntoView({ behavior: 'smooth' })}>
           Ver la carta de experiencias
         </button>
@@ -240,12 +415,72 @@ export default function App() {
           </div>
         </Journey>
 
+        <Journey id="depilacion" eyebrow="Piel lista · Depilación con cera" title="Menú de Depilación">
+          <p className="section-intro">
+            Piel suave, sedosa y libre de vello hasta por 4 semanas. Usamos ceras elásticas e
+            hipoalergénicas: preparación con limpieza y desinfección previa, aplicación de cera
+            tibia/caliente enriquecida con miel, manzanilla o aloe vera, y post-depilación con gel
+            refrescante y aceite calmante para prevenir rojeces e hidratar.
+          </p>
+          <p className="section-intro">
+            📌 Recomendaciones: exfolia la zona 24 a 48 horas antes, evita el sol directo el día del
+            servicio y no apliques cremas ni desodorante justo antes de la sesión.
+          </p>
+
+          <h3 className="subheading">Zonas Faciales</h3>
+          <div className="zone-grid">
+            {waxingFacial.map((z) => (
+              <ZoneCard key={z.id} service={z} onSelect={handleSelect} isSelected={selected?.id === z.id} />
+            ))}
+          </div>
+
+          <h3 className="subheading">Zona Íntima (femenina / masculina)</h3>
+          <div className="zone-grid">
+            {waxingIntimate.map((z) => (
+              <ZoneCard key={z.id} service={z} onSelect={handleSelect} isSelected={selected?.id === z.id} />
+            ))}
+          </div>
+
+          <h3 className="subheading">Zonas Corporales</h3>
+          <div className="zone-grid">
+            {waxingBody.map((z) => (
+              <ZoneCard key={z.id} service={z} onSelect={handleSelect} isSelected={selected?.id === z.id} />
+            ))}
+          </div>
+        </Journey>
+
+        <Journey id="hilo" eyebrow="Precisión natural · Depilación con hilo" title="Menú de Hilo">
+          <p className="section-intro">
+            Técnica milenaria 100% natural que extrae el vello desde la raíz sin tironeos agresivos
+            ni químicos. Ideal para pieles sensibles.
+          </p>
+          <div className="zone-grid">
+            {threading.map((z) => (
+              <ZoneCard key={z.id} service={z} onSelect={handleSelect} isSelected={selected?.id === z.id} />
+            ))}
+          </div>
+        </Journey>
+
+        <Journey id="experiencias" eyebrow="Vuelos compartidos · Experiencias en pareja o grupo" title="Experiencias Colibrí">
+          <p className="section-intro">
+            A veces el mejor plan no es salir, sino hacer una pausa con las personas que quieres.
+            Estas experiencias se realizan a domicilio.
+          </p>
+          <div className="card-grid">
+            {experiences.map((e) => (
+              <ExperienceCard key={e.id} service={e} onSelect={handleSelect} isSelected={selected?.id === e.id} />
+            ))}
+          </div>
+        </Journey>
+
         <Journey id="agenda" eyebrow="Aterrizaje · Agenda tu cita" title="Confirma tu experiencia">
           {selected ? (
             <div className="summary">
               <p className="summary-name">{selected.name}</p>
               <p className="summary-meta">
-                {selected.duration} · {formatPrice(total)}
+                {selected.duration ? `${selected.duration} · ` : ''}
+                {selected.price ? formatPrice(total) : 'Valor a confirmar'}
+                {selected.priceNote ? ` (${selected.priceNote})` : ''}
                 {selected.category === 'masaje' && stones ? ' (incluye piedras volcánicas)' : ''}
               </p>
             </div>
@@ -260,7 +495,7 @@ export default function App() {
             </label>
             <label className="field">
               Hora
-              <input type="time" min="06:00" max="21:00" value={form.time} onChange={updateForm('time')} />
+              <input type="time" min="07:00" max="20:00" value={form.time} onChange={updateForm('time')} />
             </label>
             <label className="field">
               Nombre
@@ -270,13 +505,18 @@ export default function App() {
               Teléfono (opcional)
               <input type="tel" placeholder="300 000 0000" value={form.phone} onChange={updateForm('phone')} />
             </label>
-            {selected?.category === 'masaje' && (
+            {(selected?.category === 'masaje' || selected?.category === 'experiencia') && (
               <label className="field field--wide">
-                Dirección para el masaje a domicilio
+                Dirección para el servicio a domicilio
                 <input type="text" placeholder="Barrio, calle, apto" value={form.address} onChange={updateForm('address')} />
               </label>
             )}
           </div>
+
+          <p className="policy-note">
+            Las reservas se apartan con el 20% del valor. Cancelaciones con menos de 3 horas de
+            antelación no tienen devolución del depósito.
+          </p>
 
           {error && <p className="form-error">{error}</p>}
           {sent && !error && (
