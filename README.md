@@ -1,4 +1,4 @@
-# Colibrí Spa — App de Agendamiento
+# Spa Movil Colibrí — App de Agendamiento
 
 App estática (React + Vite, sin backend ni base de datos) con el brochure de
 servicios de Colibrí y un flujo de agendamiento que envía la solicitud por WhatsApp.
