@@ -264,6 +264,7 @@ function ExperienceCard({ service, onSelect, isSelected }) {
 function EntryGate({ onEnter }) {
   return (
     <div className="entry-gate">
+      <p className="brand-prefix">Spa Móvil</p>
       <img src="/logo-colibri.jpg" alt="Spa Móvil Colibrí" className="entry-logo" />
       <p className="entry-tagline">Conecta, Libera y Brilla</p>
       <button className="entry-btn" onClick={onEnter}>
@@ -378,6 +379,7 @@ export default function App() {
 
       <header className="hero">
         <div className="hero-glow" />
+        <p className="brand-prefix">Spa Móvil</p>
         <img src="/logo-colibri.jpg" alt="Spa Móvil Colibrí — Conecta, Libera y Brilla" className="hero-logo" />
         <p className="hero-hours">Martes a domingo · 8:00 a.m. – 7:00 p.m. · Lunes con cita previa</p>
         <button className="hero-cta" onClick={() => document.getElementById('vuelos').scrollIntoView({ behavior: 'smooth' })}>

@@ -480,6 +480,20 @@ input:focus-visible {
   padding-top: 16px;
   margin-top: 24px;
 }
+.brand-prefix {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 6px;
+  text-align: center;
+
+}
 
 .entry-gate {
   position: fixed;
