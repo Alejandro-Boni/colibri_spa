@@ -264,7 +264,7 @@ function ExperienceCard({ service, onSelect, isSelected }) {
 function EntryGate({ onEnter }) {
   return (
     <div className="entry-gate">
-      <img src="/logo-colibri.jpg" alt="Colibrí" className="entry-logo" />
+      <img src="/logo-colibri.jpg" alt="Spa Móvil Colibrí" className="entry-logo" />
       <p className="entry-tagline">Conecta, Libera y Brilla</p>
       <button className="entry-btn" onClick={onEnter}>
         Entrar
@@ -330,7 +330,7 @@ export default function App() {
 
   const buildMessage = () => {
     const lines = []
-    lines.push('¡Hola Colibrí! 🌸 Quiero agendar una experiencia:')
+    lines.push('¡Hola Spa Móvil Colibrí! 🌸 Quiero agendar una experiencia:')
     lines.push('')
     lines.push(`Servicio: ${selected.name}`)
     if (selected.duration) lines.push(`Duración: ${selected.duration}`)
@@ -378,8 +378,8 @@ export default function App() {
 
       <header className="hero">
         <div className="hero-glow" />
-        <img src="/logo-colibri.jpg" alt="Colibrí — Conecta, Libera y Brilla" className="hero-logo" />
-        <p className="hero-hours">Martes a domingo · 7:00 a.m. – 8:00 p.m. · Lunes con cita previa</p>
+        <img src="/logo-colibri.jpg" alt="Spa Móvil Colibrí — Conecta, Libera y Brilla" className="hero-logo" />
+        <p className="hero-hours">Martes a domingo · 8:00 a.m. – 7:00 p.m. · Lunes con cita previa</p>
         <button className="hero-cta" onClick={() => document.getElementById('vuelos').scrollIntoView({ behavior: 'smooth' })}>
           Ver la carta de experiencias
         </button>
@@ -531,7 +531,7 @@ export default function App() {
 
       <footer className="footer">
         <Wing className="wing-icon footer-wing" />
-        <p>Colibrí · Conecta, Libera y Brilla</p>
+        <p>Spa Móvil Colibrí · Conecta, Libera y Brilla</p>
         <p className="footer-sub">Escríbenos directo: +57 310 697 9485</p>
       </footer>
     </>
