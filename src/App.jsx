@@ -260,6 +260,23 @@ function ExperienceCard({ service, onSelect, isSelected }) {
     </div>
   )
 }
+function InstagramIcon({ className }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.5">
+      <circle cx="12" cy="12" r="4.2" />
+      <circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}
+
+function TikTokIcon({ className }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+      <path d="M16.6 5.82c-1.02-.9-1.6-2.19-1.6-3.57h-3.1v13.06c0 1.42-1.15 2.58-2.58 2.58a2.58 2.58 0 0 1-2.58-2.58c0-1.53 1.42-2.68 2.94-2.44V9.75c-3.28-.4-6.14 2.13-6.14 5.56 0 3-16 2.62 5.56 5.78 5.56 3.16 0 5.78-2.4 5.78-5.56V8.98a7.24 7.24 0 0 0 4.24 1.37V7.24s-1.83.1-2.74-1.42z"/>
+    </svg>
+  )
+}
+
 
 function EntryGate({ onEnter }) {
   return (
@@ -535,6 +552,26 @@ export default function App() {
         <Wing className="wing-icon footer-wing" />
         <p>Spa Móvil Colibrí · Conecta, Libera y Brilla</p>
         <p className="footer-sub">Escríbenos directo: +57 310 697 9485</p>
+        <div className="social-row">
+          <a
+            href="https://www.instagram.com/spamovilcolibri"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link"
+            aria-label="Instagram"
+          >
+            <InstagramIcon className="social-icon" />
+          </a>
+          <a
+            href="https://www.tiktok.com/@spamovilcolibri"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link"
+            aria-label="TikTok"
+          >
+            <TiktokIcon className="social-icon" />
+          </a>
+        </div>
       </footer>
     </>
   )
