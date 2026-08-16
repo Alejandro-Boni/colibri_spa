@@ -495,6 +495,14 @@ input:focus-visible {
 
 }
 
+.reveal-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
 .entry-gate {
   position: fixed;
   inset: 0;
