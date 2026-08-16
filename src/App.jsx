@@ -1,6 +1,8 @@
 import { useState, useMemo, useRef } from 'react'
 import './App.css'
 
+const MAINTENANCE_MODE = true
+
 const WHATSAPP_NUMBER = '573106979485'
 const STONES_PRICE = 20000
 
@@ -304,7 +306,31 @@ function HummingbirdField() {
   )
 }
 
+function MaintenancePage() {
+  return (
+    <div className="entry-gate">
+      <img src="/logo-colibri.jpg" alt="Spa Móvil Colibrí" className="entry-logo" />
+      <p className="entry-tagline" style={{ marginTop: 24, fontSize: '1.1rem' }}>
+        Estamos actualizando la experiencia
+      </p>
+      <p className="entry-hint" style={{ maxWidth: '32ch', marginTop: 8 }}>
+        Disculpa las molestias, volvemos en unos minutos con mejoras para ti.
+      </p>
+      <a
+        href="https://wa.me/573106979485"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="entry-btn"
+        style={{ marginTop: 20, textDecoration: 'none', display: 'inline-block' }}
+      >
+        Escríbenos por WhatsApp
+      </a>
+    </div>
+  )
+}
+
 export default function App() {
+  if (MAINTENANCE_MODE) return <MaintenancePage /> 
   const [selected, setSelected] = useState(null)
   const [stones, setStones] = useState(false)
   const [form, setForm] = useState({ name: '', phone: '', address: '', date: '', time: '' })
