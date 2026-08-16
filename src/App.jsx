@@ -278,18 +278,82 @@ function TiktokIcon({ className }) {
     </svg>
   )
 }
+function ParticleField() {
+  const converge = useMemo(() => {
+    return Array.from({ length: 40 }).map((_, i) => {
+      const angle = Math.random() * Math.PI * 2
+      const distance = 90 + Math.random() * 180
+      return {
+        id: i,
+        tx: Math.cos(angle) * distance,
+        ty: Math.sin(angle) * distance,
+        delay: Math.random() * 0.5,
+        size: 2 + Math.random() * 3,
+      }
+    })
+  }, [])
 
+  const dust = useMemo(() => {
+    return Array.from({ length: 18 }).map((_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      delay: Math.random() * 6,
+      duration: 5 + Math.random() * 4,
+      size: 1 + Math.random() * 2,
+    }))
+  }, [])
+
+  return (
+    <div className="particle-field" aria-hidden="true">
+      {converge.map((p) => (
+        <span
+          key={`c-${p.id}`}
+          className="particle"
+          style={{ '--tx': `${p.tx}px`, '--ty': `${p.ty}px`, '--delay': `${p.delay}s`, width: `${p.size}px`, height: `${p.size}px` }}
+        />
+      ))}
+      {dust.map((p) => (
+        <span
+          key={`d-${p.id}`}
+          className="dust-particle"
+          style={{ left: `${p.left}%`, '--delay': `${p.delay}s`, '--duration': `${p.duration}s`, width: `${p.size}px`, height: `${p.size}px` }}
+        />
+      ))}
+    </div>
+  )
+}
+
+function HummingbirdWireframe({ className }) {
+  return (
+    <svg viewBox="0 0 48 48" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        pathLength="1"
+        d="M24 30C20 24 12 22 6 14C12 16 18 16 22 20C21 12 17 8 15 2C21 5 26 10 27 18C31 12 33 8 38 6C36 12 35 17 30 22C36 22 40 20 46 20C40 26 32 28 27 26C29 32 27 38 24 44C22 38 22 34 24 30Z"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinejoin="round"
+        className="wireframe-path"
+      />
+    </svg>
+  )
+}
 
 function EntryGate({ onEnter }) {
   return (
     <div className="entry-gate">
-      <p className="brand-prefix">Spa Móvil</p>
-      <img src="/logo-colibri.jpg" alt="Spa Móvil Colibrí" className="entry-logo" />
-      <p className="entry-tagline">Conecta, Libera y Brilla</p>
-      <button className="entry-btn" onClick={onEnter}>
+      <div className="reveal-stage">
+        <div className="stage-glow" />
+        <ParticleField />
+        <HummingbirdWireframe className="wireframe-reveal" />
+        <p className="brand-prefix reveal-text">Spa Móvil</p>
+        <img src="/logo-colibri.jpg" alt="Spa Móvil Colibrí" className="entry-logo logo-reveal" />
+        <img src="/logo-colibri.jpg" alt="" aria-hidden="true" className="entry-logo logo-reflection" />
+      </div>
+      <p className="entry-tagline reveal-text-delayed">Conecta, Libera y Brilla</p>
+      <button className="entry-btn reveal-text-delayed" onClick={onEnter}>
         Entrar
       </button>
-      <p className="entry-hint">Activa el sonido para vivir la experiencia completa</p>
+      <p className="entry-hint reveal-text-delayed">Activa el sonido para vivir la experiencia completa</p>
     </div>
   )
 }
