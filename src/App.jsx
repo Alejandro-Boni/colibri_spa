@@ -71,27 +71,27 @@ const facials = [
 ]
 
 const waxingFacial = [
-  { id: 'cejas', category: 'depilacion', name: 'Cejas (diseño y depilación)', price: 30000 },
-  { id: 'bozo', category: 'depilacion', name: 'Bozo', price: 15000 },
-  { id: 'menton', category: 'depilacion', name: 'Mentón / Barbilla', price: 15000 },
-  { id: 'patillas', category: 'depilacion', name: 'Patillas', price: 10000 },
-  { id: 'rostro-completo', category: 'depilacion', name: 'Rostro Completo', desc: 'Cejas, bozo, mentón y patillas', price: 40000 },
+  { id: 'cejas', category: 'depilacion', name: 'Cejas (diseño y depilación)', price: 50000 },
+  { id: 'bozo', category: 'depilacion', name: 'Bozo', price: 35000 },
+  { id: 'menton', category: 'depilacion', name: 'Mentón / Barbilla', price: 35000 },
+  { id: 'patillas', category: 'depilacion', name: 'Patillas', price: 30000 },
+  { id: 'rostro-completo', category: 'depilacion', name: 'Rostro Completo', desc: 'Cejas, bozo, mentón y patillas', price: 60000 },
 ]
 
 const waxingIntimate = [
-  { id: 'bikini-clasico', category: 'depilacion', name: 'Bikini Clásico', desc: 'Línea del traje de baño', price: 20000 },
-  { id: 'bikini-brasileno', category: 'depilacion', name: 'Bikini Brasileño / Completo', desc: 'Zona íntima total + zona perianal', price: 50000 },
+  { id: 'bikini-clasico', category: 'depilacion', name: 'Bikini Clásico', desc: 'Línea del traje de baño', price: 40000 },
+  { id: 'bikini-brasileno', category: 'depilacion', name: 'Bikini Brasileño / Completo', desc: 'Zona íntima total + zona perianal', price: 70000 },
 ]
 
 const waxingBody = [
-  { id: 'axilas', category: 'depilacion', name: 'Axilas', price: 20000 },
-  { id: 'brazos-completos', category: 'depilacion', name: 'Brazos completos', price: 40000 },
-  { id: 'medio-brazo', category: 'depilacion', name: 'Medio brazo', price: 20000 },
-  { id: 'piernas-completas', category: 'depilacion', name: 'Piernas completas', price: 50000 },
-  { id: 'media-pierna', category: 'depilacion', name: 'Media pierna', desc: 'Pantorrilla o muslo', price: 30000 },
-  { id: 'espalda-completa', category: 'depilacion', name: 'Espalda completa', price: 50000 },
-  { id: 'abdomen-pecho', category: 'depilacion', name: 'Abdomen o Pecho', price: 50000 },
-  { id: 'depilacion-completa', category: 'depilacion', name: 'Depilación completa', price: 80000 },
+  { id: 'axilas', category: 'depilacion', name: 'Axilas', price: 40000 },
+  { id: 'brazos-completos', category: 'depilacion', name: 'Brazos completos', price: 60000 },
+  { id: 'medio-brazo', category: 'depilacion', name: 'Medio brazo', price: 40000 },
+  { id: 'piernas-completas', category: 'depilacion', name: 'Piernas completas', price: 70000 },
+  { id: 'media-pierna', category: 'depilacion', name: 'Media pierna', desc: 'Pantorrilla o muslo', price: 50000 },
+  { id: 'espalda-completa', category: 'depilacion', name: 'Espalda completa', price: 70000 },
+  { id: 'abdomen-pecho', category: 'depilacion', name: 'Abdomen o Pecho', price: 70000 },
+  { id: 'depilacion-completa', category: 'depilacion', name: 'Depilación completa', price: 100000 },
 ]
 
 const threading = [
