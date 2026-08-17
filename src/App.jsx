@@ -341,19 +341,21 @@ function HummingbirdWireframe({ className }) {
 function EntryGate({ onEnter }) {
   return (
     <div className="entry-gate">
-      <div className="reveal-stage">
-        <div className="stage-glow" />
-        <ParticleField />
-        <HummingbirdWireframe className="wireframe-reveal" />
+      <ParticleField />
+      <div className="entry-content">
         <p className="brand-prefix reveal-text">Spa Móvil</p>
-        <img src="/logo-colibri.jpg" alt="Spa Móvil Colibrí" className="entry-logo logo-reveal" />
-        <img src="/logo-colibri.jpg" alt="" aria-hidden="true" className="entry-logo logo-reflection" />
+        <div className="logo-frame">
+          <div className="stage-glow" />
+          <HummingbirdWireframe className="wireframe-reveal" />
+          <img src="/logo-colibri.jpg" alt="Spa Móvil Colibrí" className="entry-logo logo-reveal" />
+          <img src="/logo-colibri.jpg" alt="" aria-hidden="true" className="entry-logo logo-reflection" />
+        </div>
+        <p className="entry-tagline reveal-text-delayed">Conecta, Libera y Brilla</p>
+        <button className="entry-btn reveal-text-delayed" onClick={onEnter}>
+          Entrar
+        </button>
+        <p className="entry-hint reveal-text-delayed">Activa el sonido para vivir la experiencia completa</p>
       </div>
-      <p className="entry-tagline reveal-text-delayed">Conecta, Libera y Brilla</p>
-      <button className="entry-btn reveal-text-delayed" onClick={onEnter}>
-        Entrar
-      </button>
-      <p className="entry-hint reveal-text-delayed">Activa el sonido para vivir la experiencia completa</p>
     </div>
   )
 }
