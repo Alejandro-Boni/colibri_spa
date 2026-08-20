@@ -361,24 +361,21 @@ function EntryGate({ onEnter }) {
         </div>
       )}
 
-     {stage === 'welcome' && (
-        <div className="welcome-reveal">
-          <span className="iris-ring" />
-          <div className="entry-content">
-            <p className="brand-prefix reveal-text">Spa Móvil</p>
-            <div className="logo-shimmer">
-              <img src="/logo-colibri.jpg" alt="Spa Móvil Colibrí" className="entry-logo" />
-            </div>
-            <p className="entry-tagline reveal-text">Conecta, Libera y Brilla</p>
-            <button className="entry-btn entry-btn--pulse reveal-text-delayed" onClick={onEnter}>
-              Entrar
-            </button>
-            <p className="entry-hint reveal-text-delayed">Activa el sonido para vivir la experiencia completa</p>
-          </div>
+      {stage === 'welcome' && (
+        <div className="entry-content welcome-fade-in">
+          <p className="brand-prefix reveal-text">Spa Móvil</p>
+          <img src="/logo-colibri.jpg" alt="Spa Móvil Colibrí" className="entry-logo" />
+          <p className="entry-tagline reveal-text">Conecta, Libera y Brilla</p>
+          <button className="entry-btn reveal-text-delayed" onClick={onEnter}>
+            Entrar
+          </button>
+          <p className="entry-hint reveal-text-delayed">Activa el sonido para vivir la experiencia completa</p>
         </div>
       )}
+    </div>
+  )
+}
 
-      
 function HummingbirdField() {
   return (
     <div className="hb-field" aria-hidden="true">
