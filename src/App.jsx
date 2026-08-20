@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect} from 'react'
+import { useState, useMemo, useRef } from 'react'
 import './App.css'
 
 const MAINTENANCE_MODE = false
@@ -339,39 +339,23 @@ function HummingbirdWireframe({ className }) {
 }
 
 function EntryGate({ onEnter }) {
-  const [stage, setStage] = useState('wireframe')
-
-  useEffect(() => {
-    const t1 = setTimeout(() => setStage('transitioning'), 2000)
-    const t2 = setTimeout(() => setStage('welcome'), 2400)
-    return () => {
-      clearTimeout(t1)
-      clearTimeout(t2)
-    }
-  }, [])
-
   return (
     <div className="entry-gate">
       <ParticleField />
-
-      {stage !== 'welcome' && (
-        <div className={`wireframe-stage ${stage === 'transitioning' ? 'wireframe-stage--out' : ''}`}>
+      <div className="entry-content">
+        <p className="brand-prefix reveal-text">Spa Móvil</p>
+        <div className="logo-frame">
           <div className="stage-glow" />
-          <HummingbirdWireframe className="wireframe-standalone" />
+          <HummingbirdWireframe className="wireframe-reveal" />
+          <img src="/logo-colibri.jpg" alt="Spa Móvil Colibrí" className="entry-logo logo-reveal" />
+          <img src="/logo-colibri.jpg" alt="" aria-hidden="true" className="entry-logo logo-reflection" />
         </div>
-      )}
-
-      {stage === 'welcome' && (
-        <div className="entry-content welcome-fade-in">
-          <p className="brand-prefix reveal-text">Spa Móvil</p>
-          <img src="/logo-colibri.jpg" alt="Spa Móvil Colibrí" className="entry-logo" />
-          <p className="entry-tagline reveal-text">Conecta, Libera y Brilla</p>
-          <button className="entry-btn reveal-text-delayed" onClick={onEnter}>
-            Entrar
-          </button>
-          <p className="entry-hint reveal-text-delayed">Activa el sonido para vivir la experiencia completa</p>
-        </div>
-      )}
+        <p className="entry-tagline reveal-text-delayed">Conecta, Libera y Brilla</p>
+        <button className="entry-btn reveal-text-delayed" onClick={onEnter}>
+          Entrar
+        </button>
+        <p className="entry-hint reveal-text-delayed">Activa el sonido para vivir la experiencia completa</p>
+      </div>
     </div>
   )
 }
