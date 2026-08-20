@@ -495,21 +495,17 @@ input:focus-visible {
 
 }
 
-.entry-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.reveal-text {
+  opacity: 0;
+  animation: fade-up 0.6s ease-out forwards;
+  animation-delay: 0.1s;
 }
 
-.logo-frame {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
+.reveal-text-delayed {
+  opacity: 0;
+  animation: fade-up 0.6s ease-out forwards;
+  animation-delay: 0.4s;
 }
-
 
 .entry-gate {
   position: fixed;
@@ -524,6 +520,42 @@ input:focus-visible {
   text-align: center;
   background: radial-gradient(ellipse at 50% 40%, #1a140a 0%, #060503 75%);
   animation: gate-fade-in 0.6s ease;
+}
+
+.entry-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wireframe-stage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+  height: 240px;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.wireframe-stage--out {
+  opacity: 0;
+}
+
+.wireframe-standalone {
+  width: 180px;
+  height: 180px;
+  color: var(--gold-1);
+  filter: drop-shadow(0 0 14px rgba(243, 217, 139, 0.8));
+}
+
+.welcome-fade-in {
+  opacity: 0;
+  animation: fade-up 0.6s ease-out forwards;
 }
 
 @keyframes gate-fade-in {
