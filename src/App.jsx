@@ -530,7 +530,7 @@ export default function App() {
   }
 
   return (
-   <>
+    <>
       <audio ref={audioRef} src="/audio/relaxing-music.mp3" loop preload="auto" />
       <HummingbirdField />
       {showIntro && <IntroSplash onFinish={() => setShowIntro(false)} />}
@@ -567,8 +567,191 @@ export default function App() {
       </header>
 
       <main className="journey">
-        <Journey id="vuelos" eyebrow="En vuelo · Masajes a domicilio" title="Carta de Vuelos"></Journey>
-        </main>
-        </>
+        <Journey id="vuelos" eyebrow="En vuelo · Masajes a domicilio" title="Carta de Vuelos">
+          <p className="section-intro">
+            Cada sesión incluye desplazamiento dentro de la zona urbana norte, camilla y elementos
+            desechables, aromaterapia y musicoterapia.
+          </p>
+          <div className="card-grid">
+            {massages.map((m) => (
+              <MassageCard key={m.id} service={m} onSelect={handleSelect} isSelected={selected?.id === m.id} />
+            ))}
+          </div>
+          <label className={`stones-toggle ${selected?.category === 'masaje' ? '' : 'stones-toggle--hidden'}`}>
+            <input
+              type="checkbox"
+              checked={stones}
+              onChange={(e) => setStones(e.target.checked)}
+              disabled={selected?.category !== 'masaje'}
+            />
+            Agregar masaje con piedras volcánicas (+{formatPrice(STONES_PRICE)})
+          </label>
+        </Journey>
+
+        <Journey id="faciales" eyebrow="En tierra · Rituales faciales" title="Rituales de Piel">
+          <div className="card-grid">
+            {facials.map((f) => (
+              <FacialCard key={f.id} service={f} onSelect={handleSelect} isSelected={selected?.id === f.id} />
+            ))}
+          </div>
+        </Journey>
+
+        <Journey id="depilacion" eyebrow="Piel lista · Depilación con cera" title="Menú de Depilación">
+          <p className="section-intro">
+            Piel suave, sedosa y libre de vello hasta por 4 semanas. Usamos ceras elásticas e
+            hipoalergénicas: preparación con limpieza y desinfección previa, aplicación de cera
+            tibia/caliente enriquecida con miel, manzanilla o aloe vera, y post-depilación con gel
+            refrescante y aceite calmante para prevenir rojeces e hidratar.
+          </p>
+          <p className="section-intro">
+            📌 Recomendaciones: exfolia la zona 24 a 48 horas antes, evita el sol directo el día del
+            servicio y no apliques cremas ni desodorante justo antes de la sesión.
+          </p>
+
+          <h3 className="subheading">Zonas Faciales</h3>
+          <div className="zone-grid">
+            {waxingFacial.map((z) => (
+              <ZoneCard key={z.id} service={z} onSelect={handleSelect} isSelected={selected?.id === z.id} />
+            ))}
+          </div>
+
+          <h3 className="subheading">Zona Íntima (femenina / masculina)</h3>
+          <div className="zone-grid">
+            {waxingIntimate.map((z) => (
+              <ZoneCard key={z.id} service={z} onSelect={handleSelect} isSelected={selected?.id === z.id} />
+            ))}
+          </div>
+
+          <h3 className="subheading">Zonas Corporales</h3>
+          <div className="zone-grid">
+            {waxingBody.map((z) => (
+              <ZoneCard key={z.id} service={z} onSelect={handleSelect} isSelected={selected?.id === z.id} />
+            ))}
+          </div>
+        </Journey>
+
+        <Journey id="hilo" eyebrow="Precisión natural · Depilación con hilo" title="Menú de Hilo">
+          <p className="section-intro">
+            Técnica milenaria 100% natural que extrae el vello desde la raíz sin tironeos agresivos
+            ni químicos. Ideal para pieles sensibles.
+          </p>
+          <div className="zone-grid">
+            {threading.map((z) => (
+              <ZoneCard key={z.id} service={z} onSelect={handleSelect} isSelected={selected?.id === z.id} />
+            ))}
+          </div>
+        </Journey>
+
+        <Journey id="experiencias" eyebrow="Vuelos compartidos · Experiencias en pareja o grupo" title="Experiencias Colibrí">
+          <p className="section-intro">
+            A veces el mejor plan no es salir, sino hacer una pausa con las personas que quieres.
+            Estas experiencias se realizan a domicilio.
+          </p>
+          <div className="card-grid">
+            {experiences.map((e) => (
+              <ExperienceCard key={e.id} service={e} onSelect={handleSelect} isSelected={selected?.id === e.id} />
+            ))}
+          </div>
+        </Journey>
+
+        <Journey id="agenda" eyebrow="Aterrizaje · Agenda tu cita" title="Confirma tu experiencia">
+          {selected ? (
+            <div className="summary">
+              <p className="summary-name">{selected.name}</p>
+              <p className="summary-meta">
+                {selected.duration ? `${selected.duration} · ` : ''}
+                {selected.price ? formatPrice(total) : 'Valor a confirmar'}
+                {selected.priceNote ? ` (${selected.priceNote})` : ''}
+                {selected.category === 'masaje' && stones ? ' (incluye piedras volcánicas)' : ''}
+              </p>
+            </div>
+          ) : (
+            <p className="summary-empty">Elige un vuelo o un ritual arriba para comenzar tu agendamiento.</p>
+          )}
+
+          <div className="form-grid">
+            <label className="field">
+              Fecha
+              <input type="date" min={todayISO()} value={form.date} onChange={updateForm('date')} />
+            </label>
+            <label className="field">
+              Hora
+              <input type="time" min="08:00" max="19:00" value={form.time} onChange={updateForm('time')} />
+            </label>
+            <label className="field">
+              Nombre
+              <input type="text" placeholder="Tu nombre" value={form.name} onChange={updateForm('name')} />
+            </label>
+            <label className="field">
+              Teléfono (opcional)
+              <input type="tel" placeholder="300 000 0000" value={form.phone} onChange={updateForm('phone')} />
+            </label>
+            {(selected?.category === 'masaje' || selected?.category === 'experiencia') && (
+              <label className="field field--wide">
+                Dirección para el servicio a domicilio
+                <input type="text" placeholder="Barrio, calle, apto" value={form.address} onChange={updateForm('address')} />
+              </label>
+            )}
+          </div>
+
+          <p className="policy-note">
+            Las reservas se apartan con el 20% del valor. Cancelaciones con menos de 3 horas de
+            antelación no tienen devolución del depósito.
+          </p>
+
+          {error && (
+            <p className="form-error">
+              {error}
+              {hourBlocked && (
+                <>
+                  {' '}
+                  <a
+                    href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="form-error-link"
+                  >
+                    Escríbenos directo por WhatsApp
+                  </a>
+                </>
+              )}
+            </p>
+          )}
+          {sent && !error && (
+            <p className="form-success">Te llevamos a WhatsApp. Confirma el envío para reservar tu cupo.</p>
+          )}
+
+          <button className="confirm-btn" onClick={handleConfirm}>
+            Confirmar por WhatsApp
+          </button>
+        </Journey>
+      </main>
+
+      <footer className="footer">
+        <Wing className="wing-icon footer-wing" />
+        <p>Spa Móvil Colibrí · Conecta, Libera y Brilla</p>
+        <p className="footer-sub">Escríbenos directo: +57 310 697 9485</p>
+        <div className="social-row">
+          <a
+            href="https://www.instagram.com/spamovilcolibri"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link"
+            aria-label="Instagram"
+          >
+            <InstagramIcon className="social-icon" />
+          </a>
+          <a
+            href="https://www.tiktok.com/@spamovilcolibri"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link"
+            aria-label="TikTok"
+          >
+            <TiktokIcon className="social-icon" />
+          </a>
+        </div>
+      </footer>
+    </>
   )
 }
