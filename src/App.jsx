@@ -354,8 +354,22 @@ function IntroSplash({ onFinish }) {
       <audio ref={introAudioRef} src="/audio/intro-welcome.mp3" preload="auto" />
       <div className="intro-glow" aria-hidden="true" />
       
-      {/* Colibrí orgánico con la imagen oficial de la marca */}
-      <img src="/logo-colibri.jpg" alt="Colibrí Spa" className="intro-bird-image" />
+      {/* Colibrí dorado volando hacia la pantalla */}
+      <div className="flying-hummingbird-wrapper">
+        <svg viewBox="0 0 100 100" className="flying-hummingbird">
+          <path
+            d="M50 42 C45 35 30 20 12 25 C25 32 38 40 46 45 C38 43 20 42 8 48 C22 52 38 52 47 50 C40 56 22 66 14 78 C28 70 42 58 49 52 C48 62 46 78 50 92 C53 78 52 62 51 52 C58 58 72 70 86 78 C78 66 60 56 53 50 C62 52 78 52 92 48 C80 42 62 43 54 45 C62 40 75 32 88 25 C70 20 55 35 50 42 Z"
+            fill="url(#goldGradientIntro)"
+          />
+          <defs>
+            <linearGradient id="goldGradientIntro" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#f3d98b" />
+              <stop offset="60%" stopColor="#c9a227" />
+              <stop offset="100%" stopColor="#8a6d3f" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
       
       {/* Nueva Frase */}
       <p className="intro-phrase">
@@ -378,25 +392,31 @@ function WhatsappIcon({ className }) {
 function EntryGate({ onEnter }) {
   return (
     <div className="entry-gate">
-      <ParticleField />
       <div className="entry-content">
-        <p className="brand-prefix reveal-text">Spa Móvil</p>
         <div className="logo-frame">
-          <div className="stage-glow" />
-          <img src="/logo-colibri.jpg" alt="Spa Móvil Colibrí" className="entry-logo logo-reveal" />
-          <img src="/logo-colibri.jpg" alt="" aria-hidden="true" className="entry-logo logo-reflection" />
+          <img
+            src="/colibri-logo.png"
+            alt="Colibrí Spa Logo"
+            className="entry-logo"
+          />
         </div>
-
-        {/* Nueva Frase */}
-        <p className="entry-phrase reveal-text-delayed">
-          "La sutileza del tacto, la fuerza de tu renovación vital."
+        
+        {/* Mantienes solo el eslogan o título principal */}
+        <p className="entry-tagline reveal-text">
+          CONECTA, LIBERA Y BRILLA
         </p>
 
-        <p className="entry-tagline reveal-text-delayed">Conecta, Libera y Brilla</p>
-        <button className="entry-btn reveal-text-delayed" onClick={onEnter}>
+        <button
+          type="button"
+          className="entry-btn reveal-text-delayed"
+          onClick={onEnter}
+        >
           Entrar
         </button>
-        <p className="entry-hint reveal-text-delayed">Activa el sonido para vivir la experiencia completa</p>
+
+        <p className="entry-hint reveal-text-delayed">
+          Activa el sonido para vivir la experiencia completa
+        </p>
       </div>
     </div>
   )

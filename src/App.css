@@ -682,15 +682,46 @@ input:focus-visible {
   50% { opacity: 1; transform: scale(1.15); }
 }
 
-.intro-bird-image {
+/* Animación del colibrí volando hacia la pantalla */
+.flying-hummingbird-wrapper {
   position: relative;
   z-index: 2;
-  width: min(200px, 48vw);
-  height: auto;
-  filter: drop-shadow(0 10px 25px rgba(201, 162, 39, 0.3));
+  perspective: 1000px;
+}
+
+.flying-hummingbird {
+  width: min(180px, 45vw);
+  height: min(180px, 45vw);
+  filter: drop-shadow(0 0 15px rgba(243, 217, 139, 0.8)) drop-shadow(0 0 30px rgba(201, 162, 39, 0.5));
   opacity: 0;
-  transform: scale(0.92);
-  animation: intro-image-appear 1.4s ease-out 0.3s forwards;
+  transform: translateZ(-400px) scale(0.1) rotateX(15deg);
+  animation: flyToScreen 2.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards,
+             hummingbirdFlutter 0.15s ease-in-out infinite alternate;
+}
+
+@keyframes flyToScreen {
+  0% {
+    opacity: 0;
+    transform: translateZ(-400px) scale(0.1) translateY(40px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateZ(50px) scale(1.15) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0) scale(1) translateY(0);
+  }
+}
+
+/* Efecto de aleteo/vibración liviana */
+@keyframes hummingbirdFlutter {
+  from {
+    transform: translateY(0px) scale(1);
+  }
+  to {
+    transform: translateY(-3px) scale(1.02);
+  }
 }
 
 @keyframes intro-image-appear {
