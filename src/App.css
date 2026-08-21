@@ -942,3 +942,55 @@ input:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+/* Corrección del logo en la pantalla de entrada */
+.entry-logo {
+  width: min(240px, 60vw);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 25px rgba(201, 162, 39, 0.3));
+}
+
+/* Animación del colibrí volando hacia la pantalla */
+.real-hummingbird-container {
+  position: relative;
+  z-index: 2;
+  perspective: 800px;
+}
+
+.real-hummingbird-fly {
+  width: min(220px, 50vw);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(243, 217, 139, 0.6));
+  opacity: 0;
+  animation: 
+    flyInToScreen 2.2s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards,
+    wingFlutter 0.08s ease-in-out infinite alternate;
+}
+
+@keyframes flyInToScreen {
+  0% {
+    opacity: 0;
+    transform: scale(0.1) translateY(60px) rotate(-5deg);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.1) translateY(-8px) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes wingFlutter {
+  0% {
+    transform: scaleY(1) translateY(0);
+    filter: drop-shadow(0 0 15px rgba(243, 217, 139, 0.5));
+  }
+  100% {
+    transform: scaleY(0.92) translateY(-4px) skewX(2deg);
+    filter: drop-shadow(0 0 25px rgba(243, 217, 139, 0.8));
+  }
+}

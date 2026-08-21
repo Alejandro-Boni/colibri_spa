@@ -353,25 +353,16 @@ function IntroSplash({ onFinish }) {
     <div className="intro-splash">
       <audio ref={introAudioRef} src="/audio/intro-welcome.mp3" preload="auto" />
       <div className="intro-glow" aria-hidden="true" />
-      
-      {/* Colibrí dorado volando hacia la pantalla */}
-      <div className="flying-hummingbird-wrapper">
-        <svg viewBox="0 0 100 100" className="flying-hummingbird">
-          <path
-            d="M50 42 C45 35 30 20 12 25 C25 32 38 40 46 45 C38 43 20 42 8 48 C22 52 38 52 47 50 C40 56 22 66 14 78 C28 70 42 58 49 52 C48 62 46 78 50 92 C53 78 52 62 51 52 C58 58 72 70 86 78 C78 66 60 56 53 50 C62 52 78 52 92 48 C80 42 62 43 54 45 C62 40 75 32 88 25 C70 20 55 35 50 42 Z"
-            fill="url(#goldGradientIntro)"
-          />
-          <defs>
-            <linearGradient id="goldGradientIntro" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#f3d98b" />
-              <stop offset="60%" stopColor="#c9a227" />
-              <stop offset="100%" stopColor="#8a6d3f" />
-            </linearGradient>
-          </defs>
-        </svg>
+
+      {/* Colibrí Real usando la imagen oficial con animación de vuelo */}
+      <div className="real-hummingbird-container">
+        <img
+          src="/logo-colibri.jpg"
+          alt="Colibrí Spa"
+          className="real-hummingbird-fly"
+        />
       </div>
-      
-      {/* Nueva Frase */}
+
       <p className="intro-phrase">
         La sutileza del tacto, la fuerza de tu renovación vital.
       </p>
@@ -395,7 +386,7 @@ function EntryGate({ onEnter }) {
       <div className="entry-content">
         <div className="logo-frame">
           <img
-            src="/colibri-logo.png"
+            src="/logo-colibri.jpg"
             alt="Colibrí Spa Logo"
             className="entry-logo"
           />
