@@ -269,6 +269,7 @@ function ExperienceCard({ service, onSelect, isSelected }) {
     </div>
   )
 }
+
 function InstagramIcon({ className }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -285,6 +286,7 @@ function TiktokIcon({ className }) {
     </svg>
   )
 }
+
 function ParticleField() {
   const converge = useMemo(() => {
     return Array.from({ length: 40 }).map((_, i) => {
@@ -330,24 +332,6 @@ function ParticleField() {
   )
 }
 
-function HummingbirdWireframe({ className }) {
-  return (
-    <svg viewBox="0 0 48 48" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        pathLength="1"
-        d="M24 30C20 24 12 22 6 14C12 16 18 16 22 20C21 12 17 8 15 2C21 5 26 10 27 18C31 12 33 8 38 6C36 12 35 17 30 22C36 22 40 20 46 20C40 26 32 28 27 26C29 32 27 38 24 44C22 38 22 34 24 30Z"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinejoin="round"
-        className="wireframe-path"
-      />
-    </svg>
-  )
-}
-
-const HUMMINGBIRD_PATH =
-  'M24 30C20 24 12 22 6 14C12 16 18 16 22 20C21 12 17 8 15 2C21 5 26 10 27 18C31 12 33 8 38 6C36 12 35 17 30 22C36 22 40 20 46 20C40 26 32 28 27 26C29 32 27 38 24 44C22 38 22 34 24 30Z'
-
 function IntroSplash({ onFinish }) {
   const introAudioRef = useRef(null)
 
@@ -358,7 +342,7 @@ function IntroSplash({ onFinish }) {
       audio.volume = 0.55
       audio.play().catch(() => {})
     }
-    const timer = setTimeout(onFinish, 6000)
+    const timer = setTimeout(onFinish, 5000)
     return () => {
       clearTimeout(timer)
       if (audio) audio.pause()
@@ -367,13 +351,17 @@ function IntroSplash({ onFinish }) {
 
   return (
     <div className="intro-splash">
-      {/* Coloca aquí tu audio de bienvenida tipo videojuego */}
       <audio ref={introAudioRef} src="/audio/intro-welcome.mp3" preload="auto" />
       <div className="intro-glow" aria-hidden="true" />
-      <svg viewBox="0 0 48 48" className="intro-bird" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d={HUMMINGBIRD_PATH} pathLength="1" className="intro-bird-outline" />
-        <path d={HUMMINGBIRD_PATH} pathLength="1" className="intro-bird-fill" />
-      </svg>
+      
+      {/* Colibrí orgánico con la imagen oficial de la marca */}
+      <img src="/logo-colibri.jpg" alt="Colibrí Spa" className="intro-bird-image" />
+      
+      {/* Nueva Frase */}
+      <p className="intro-phrase">
+        La sutileza del tacto, la fuerza de tu renovación vital.
+      </p>
+
       <span className="sr-only">Cargando Spa Móvil Colibrí</span>
     </div>
   )
@@ -395,10 +383,15 @@ function EntryGate({ onEnter }) {
         <p className="brand-prefix reveal-text">Spa Móvil</p>
         <div className="logo-frame">
           <div className="stage-glow" />
-          <HummingbirdWireframe className="wireframe-reveal" />
           <img src="/logo-colibri.jpg" alt="Spa Móvil Colibrí" className="entry-logo logo-reveal" />
           <img src="/logo-colibri.jpg" alt="" aria-hidden="true" className="entry-logo logo-reflection" />
         </div>
+
+        {/* Nueva Frase */}
+        <p className="entry-phrase reveal-text-delayed">
+          "La sutileza del tacto, la fuerza de tu renovación vital."
+        </p>
+
         <p className="entry-tagline reveal-text-delayed">Conecta, Libera y Brilla</p>
         <button className="entry-btn reveal-text-delayed" onClick={onEnter}>
           Entrar
