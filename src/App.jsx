@@ -1,7 +1,7 @@
 import { useState, useMemo, useRef } from 'react'
 import './App.css'
 
-const MAINTENANCE_MODE = false
+const MAINTENANCE_MODE = true
 
 const WHATSAPP_NUMBER = '573106979485'
 const STONES_PRICE = 20000
