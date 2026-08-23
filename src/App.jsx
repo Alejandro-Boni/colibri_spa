@@ -269,7 +269,6 @@ function ExperienceCard({ service, onSelect, isSelected }) {
     </div>
   )
 }
-
 function InstagramIcon({ className }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -286,7 +285,6 @@ function TiktokIcon({ className }) {
     </svg>
   )
 }
-
 function ParticleField() {
   const converge = useMemo(() => {
     return Array.from({ length: 40 }).map((_, i) => {
@@ -332,41 +330,98 @@ function ParticleField() {
   )
 }
 
+function HummingbirdWireframe({ className }) {
+  return (
+    <svg viewBox="0 0 48 48" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        pathLength="1"
+        d="M24 30C20 24 12 22 6 14C12 16 18 16 22 20C21 12 17 8 15 2C21 5 26 10 27 18C31 12 33 8 38 6C36 12 35 17 30 22C36 22 40 20 46 20C40 26 32 28 27 26C29 32 27 38 24 44C22 38 22 34 24 30Z"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinejoin="round"
+        className="wireframe-path"
+      />
+    </svg>
+  )
+}
+
 function IntroSplash({ onFinish }) {
   const introAudioRef = useRef(null)
+  const videoRef = useRef(null)
+  const finishedRef = useRef(false)
+  const [ending, setEnding] = useState(false)
+
+  const igniteParticles = useMemo(() => {
+    return Array.from({ length: 26 }).map((_, i) => {
+      const angle = Math.random() * Math.PI * 2
+      const dist = 22 + Math.random() * 20
+      return {
+        id: i,
+        sx: `${Math.cos(angle) * dist}vmin`,
+        sy: `${Math.sin(angle) * dist}vmin`,
+        delay: `${Math.random() * 0.15}s`,
+        size: 2 + Math.random() * 2,
+      }
+    })
+  }, [])
 
   useEffect(() => {
     const audio = introAudioRef.current
+    const video = videoRef.current
+
     if (audio) {
       audio.currentTime = 0
       audio.volume = 0.55
       audio.play().catch(() => {})
     }
-    const timer = setTimeout(onFinish, 5000)
+    if (video) {
+      video.play().catch(() => {
+        video.muted = true
+        video.play().catch(() => {})
+      })
+    }
+
+    const finish = () => {
+      if (finishedRef.current) return
+      finishedRef.current = true
+      if (audio) audio.pause()
+      setEnding(true)
+      setTimeout(onFinish, 350)
+    }
+
+    const safety = setTimeout(finish, 6800)
+    video?.addEventListener('ended', finish)
+
     return () => {
-      clearTimeout(timer)
+      clearTimeout(safety)
+      video?.removeEventListener('ended', finish)
       if (audio) audio.pause()
     }
   }, [onFinish])
 
   return (
-    <div className="intro-splash">
+    <div className={`intro-splash ${ending ? 'is-ending' : ''}`}>
+      {/* Coloca aquí tu audio de bienvenida tipo videojuego (opcional, el video ya trae su propio look) */}
       <audio ref={introAudioRef} src="/audio/intro-welcome.mp3" preload="auto" />
-      <div className="intro-glow" aria-hidden="true" />
-
-      {/* Colibrí Real usando la imagen oficial con animación de vuelo */}
-      <div className="real-hummingbird-container">
-        <img
-          src="/logo-colibri.jpg"
-          alt="Colibrí Spa"
-          className="real-hummingbird-fly"
-        />
+      <div className="ignite-burst" aria-hidden="true">
+        {igniteParticles.map((p) => (
+          <span
+            key={p.id}
+            className="ignite-particle"
+            style={{ '--sx': p.sx, '--sy': p.sy, '--delay': p.delay, width: `${p.size}px`, height: `${p.size}px` }}
+          />
+        ))}
+        <span className="ignite-flash" />
       </div>
-
-      <p className="intro-phrase">
-        La sutileza del tacto, la fuerza de tu renovación vital.
-      </p>
-
+      <video
+        ref={videoRef}
+        className="intro-video"
+        src="/intro-colibri.mp4"
+        playsInline
+        muted
+        preload="auto"
+      />
+      <p className="intro-message">La sutileza del tacto, la fuerza de tu renovación vital</p>
       <span className="sr-only">Cargando Spa Móvil Colibrí</span>
     </div>
   )
@@ -383,31 +438,20 @@ function WhatsappIcon({ className }) {
 function EntryGate({ onEnter }) {
   return (
     <div className="entry-gate">
+      <ParticleField />
       <div className="entry-content">
+        <p className="brand-prefix reveal-text">Spa Móvil</p>
         <div className="logo-frame">
-          <img
-            src="/logo-colibri.jpg"
-            alt="Colibrí Spa Logo"
-            className="entry-logo"
-          />
+          <div className="stage-glow" />
+          <HummingbirdWireframe className="wireframe-reveal" />
+          <img src="/logo-colibri.jpg" alt="Spa Móvil Colibrí" className="entry-logo logo-reveal" />
+          <img src="/logo-colibri.jpg" alt="" aria-hidden="true" className="entry-logo logo-reflection" />
         </div>
-        
-        {/* Mantienes solo el eslogan o título principal */}
-        <p className="entry-tagline reveal-text">
-          CONECTA, LIBERA Y BRILLA
-        </p>
-
-        <button
-          type="button"
-          className="entry-btn reveal-text-delayed"
-          onClick={onEnter}
-        >
+        <p className="entry-tagline reveal-text-delayed">Conecta, Libera y Brilla</p>
+        <button className="entry-btn reveal-text-delayed" onClick={onEnter}>
           Entrar
         </button>
-
-        <p className="entry-hint reveal-text-delayed">
-          Activa el sonido para vivir la experiencia completa
-        </p>
+        <p className="entry-hint reveal-text-delayed">Activa el sonido para vivir la experiencia completa</p>
       </div>
     </div>
   )
@@ -458,7 +502,9 @@ export default function App() {
   const [sent, setSent] = useState(false)
   const [entered, setEntered] = useState(false)
   const [muted, setMuted] = useState(false)
-  const [showIntro, setShowIntro] = useState(true)
+  const [showIntro, setShowIntro] = useState(
+    () => typeof window === 'undefined' || !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
   const audioRef = useRef(null)
 
   const handleEnter = () => {
