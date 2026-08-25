@@ -924,34 +924,6 @@ input:focus-visible {
   100% { transform: scale(1); filter: blur(0) brightness(1); }
 }
 
-.intro-message {
-  position: absolute;
-  left: 50%;
-  bottom: 7%;
-  z-index: 5;
-  width: min(340px, 84vw);
-  text-align: center;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  color: var(--gold-1);
-  font-size: clamp(0.95rem, 3.6vw, 1.2rem);
-  letter-spacing: 0.03em;
-  line-height: 1.45;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85), 0 0 20px rgba(0, 0, 0, 0.55);
-  opacity: 0;
-  transform: translateX(-50%) translateY(10px);
-  animation: intro-message-in 1s ease forwards;
-  animation-delay: 1.2s;
-  pointer-events: none;
-}
-
-@keyframes intro-message-in {
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-}
-
 .particle-field {
   position: fixed;
   inset: 0;

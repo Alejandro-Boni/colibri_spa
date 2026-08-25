@@ -346,7 +346,6 @@ function HummingbirdWireframe({ className }) {
 }
 
 function IntroSplash({ onFinish }) {
-  const introAudioRef = useRef(null)
   const videoRef = useRef(null)
   const finishedRef = useRef(false)
   const [ending, setEnding] = useState(false)
@@ -366,14 +365,8 @@ function IntroSplash({ onFinish }) {
   }, [])
 
   useEffect(() => {
-    const audio = introAudioRef.current
     const video = videoRef.current
 
-    if (audio) {
-      audio.currentTime = 0
-      audio.volume = 0.55
-      audio.play().catch(() => {})
-    }
     if (video) {
       video.play().catch(() => {
         video.muted = true
@@ -384,7 +377,6 @@ function IntroSplash({ onFinish }) {
     const finish = () => {
       if (finishedRef.current) return
       finishedRef.current = true
-      if (audio) audio.pause()
       setEnding(true)
       setTimeout(onFinish, 350)
     }
@@ -395,14 +387,11 @@ function IntroSplash({ onFinish }) {
     return () => {
       clearTimeout(safety)
       video?.removeEventListener('ended', finish)
-      if (audio) audio.pause()
     }
   }, [onFinish])
 
   return (
     <div className={`intro-splash ${ending ? 'is-ending' : ''}`}>
-      {/* Coloca aquí tu audio de bienvenida tipo videojuego (opcional, el video ya trae su propio look) */}
-      <audio ref={introAudioRef} src="/audio/intro-welcome.mp3" preload="auto" />
       <div className="ignite-burst" aria-hidden="true">
         {igniteParticles.map((p) => (
           <span
@@ -418,10 +407,8 @@ function IntroSplash({ onFinish }) {
         className="intro-video"
         src="/intro-colibri.mp4"
         playsInline
-        muted
         preload="auto"
       />
-      <p className="intro-message">La sutileza del tacto, la fuerza de tu renovación vital</p>
       <span className="sr-only">Cargando Spa Móvil Colibrí</span>
     </div>
   )
