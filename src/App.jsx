@@ -11,7 +11,7 @@ function isWithinBusinessHours(time) {
   if (!time) return false
   return time >= BUSINESS_OPEN && time <= BUSINESS_CLOSE
 }
-const STONES_PRICE = 20000
+const STONES_PRICE = 30000
 
 const massages = [
   {
@@ -614,15 +614,6 @@ export default function App() {
               <MassageCard key={m.id} service={m} onSelect={handleSelect} isSelected={selected?.id === m.id} />
             ))}
           </div>
-          <label className={`stones-toggle ${selected?.category === 'masaje' ? '' : 'stones-toggle--hidden'}`}>
-            <input
-              type="checkbox"
-              checked={stones}
-              onChange={(e) => setStones(e.target.checked)}
-              disabled={selected?.category !== 'masaje'}
-            />
-            Agregar masaje con piedras volcánicas (+{formatPrice(STONES_PRICE)})
-          </label>
         </Journey>
 
         <Journey id="faciales" eyebrow="En tierra · Rituales faciales" title="Rituales de Piel">
@@ -701,6 +692,12 @@ export default function App() {
                 {selected.priceNote ? ` (${selected.priceNote})` : ''}
                 {selected.category === 'masaje' && stones ? ' (incluye piedras volcánicas)' : ''}
               </p>
+              {selected.category === 'masaje' && (
+                <label className="stones-toggle">
+                  <input type="checkbox" checked={stones} onChange={(e) => setStones(e.target.checked)} />
+                  Agregar masaje con piedras volcánicas (+{formatPrice(STONES_PRICE)})
+                </label>
+              )}
             </div>
           ) : (
             <p className="summary-empty">Elige un vuelo o un ritual arriba para comenzar tu agendamiento.</p>

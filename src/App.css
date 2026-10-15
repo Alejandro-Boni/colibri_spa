@@ -276,14 +276,11 @@ input:focus-visible {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 24px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(201, 162, 39, 0.25);
   color: var(--muted);
   font-size: 0.9rem;
-  transition: opacity 0.2s ease;
-}
-
-.stones-toggle--hidden {
-  opacity: 0.35;
 }
 
 .stones-toggle input {
