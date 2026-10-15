@@ -170,6 +170,15 @@ const todayISO = () => {
   return local.toISOString().split('T')[0]
 }
 
+// Ventanas de temporada: se prenden y apagan solas según la fecha.
+// Para sumar una nueva (ej. Navidad), agrega otro rango aquí.
+function getSeasonalTheme(date = new Date()) {
+  const month = date.getMonth() // 0 = enero
+  const day = date.getDate()
+  if ((month === 9 && day >= 15) || (month === 10 && day <= 2)) return 'halloween'
+  return null
+}
+
 const Wing = ({ className }) => (
   <svg viewBox="0 0 48 48" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
@@ -444,7 +453,73 @@ function EntryGate({ onEnter }) {
   )
 }
 
-function HummingbirdField() {
+const Bat = ({ className }) => (
+  <svg viewBox="-16 -9 32 18" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="currentColor" strokeWidth="0.45" strokeLinejoin="round" strokeLinecap="round">
+      <ellipse cx="0" cy="-1" rx="1.3" ry="2.6" />
+      <path d="M -1.3,-3.2 L -2.2,-5.6 L -0.4,-3.9 Z" />
+      <path d="M 1.3,-3.2 L 2.2,-5.6 L 0.4,-3.9 Z" />
+      <path d="M 1,-1.5 C 4,-5 8,-7.5 13,-8 C 11,-5.5 9.5,-4 9.8,-3 C 11.5,-3.6 13,-3 14.5,-1 C 12,-1.2 10.2,-0.3 10,0.8 C 11.3,0.6 12.5,1.3 13.2,3 C 10.8,2 8.8,2.3 7.8,3.8 C 6,2.6 3,1.2 1,1.2 Z" />
+      <path d="M -1,-1.5 C -4,-5 -8,-7.5 -13,-8 C -11,-5.5 -9.5,-4 -9.8,-3 C -11.5,-3.6 -13,-3 -14.5,-1 C -12,-1.2 -10.2,-0.3 -10,0.8 C -11.3,0.6 -12.5,1.3 -13.2,3 C -10.8,2 -8.8,2.3 -7.8,3.8 C -6,2.6 -3,1.2 -1,1.2 Z" />
+    </g>
+  </svg>
+)
+
+const Pumpkin = ({ className }) => (
+  <svg viewBox="-9 -11 18 20" className={className} xmlns="http://www.w3.org/2000/svg">
+    <path d="M -1,-8 C -1.5,-9.5 0.5,-10.5 1.3,-9.3 C 1.8,-8.5 1,-7.8 0,-8" stroke="currentColor" strokeWidth="0.5" fill="none" strokeLinecap="round" />
+    <g stroke="currentColor" strokeWidth="0.45" fill="none">
+      <path d="M -7,0 C -7,-4.5 -4,-7.5 0,-7.5 C 4,-7.5 7,-4.5 7,0 C 7,4.5 4,7.5 0,7.5 C -4,7.5 -7,4.5 -7,0 Z" />
+      <path d="M -3.6,-7.3 C -5,-4.5 -5,4.5 -3.6,7.3" />
+      <path d="M 3.6,-7.3 C 5,-4.5 5,4.5 3.6,7.3" />
+      <path d="M 0,-7.5 L 0,7.5" />
+    </g>
+    <g className="pumpkin-face" fill="currentColor">
+      <path d="M -3.6,-1.5 L -1.8,-1.5 L -2.7,0.3 Z" />
+      <path d="M 3.6,-1.5 L 1.8,-1.5 L 2.7,0.3 Z" />
+      <path d="M -3,3 L -1.5,2 L -0.4,3 L 0.6,2.1 L 1.6,3 L 3,2 L 3,3.4 L 1.6,4.3 L 0.6,3.4 L -0.4,4.3 L -1.5,3.3 L -3,4.2 Z" />
+    </g>
+  </svg>
+)
+
+function SeasonalCorners({ seasonal }) {
+  if (seasonal !== 'halloween') return null
+  const web = (
+    <g stroke="currentColor" strokeWidth="1" fill="none">
+      <line x1="0" y1="0" x2="150" y2="0" />
+      <line x1="0" y1="0" x2="130" y2="55" />
+      <line x1="0" y1="0" x2="100" y2="100" />
+      <line x1="0" y1="0" x2="55" y2="130" />
+      <line x1="0" y1="0" x2="0" y2="150" />
+      <path d="M 40,0 Q 36,36 0,40" />
+      <path d="M 75,0 Q 65,65 0,75" />
+      <path d="M 110,0 Q 95,95 0,110" />
+      <path d="M 150,0 Q 120,120 0,150" />
+      <g transform="translate(55,70)" strokeWidth="1.2" fill="currentColor">
+        <ellipse cx="0" cy="0" rx="4" ry="5" />
+        <circle cx="0" cy="-6" r="2.4" />
+        <line x1="-6" y1="-2" x2="-10" y2="-6" />
+        <line x1="-6" y1="1" x2="-11" y2="2" />
+        <line x1="-6" y1="4" x2="-10" y2="9" />
+        <line x1="6" y1="-2" x2="10" y2="-6" />
+        <line x1="6" y1="1" x2="11" y2="2" />
+        <line x1="6" y1="4" x2="10" y2="9" />
+      </g>
+    </g>
+  )
+  return (
+    <div className="seasonal-corners" aria-hidden="true">
+      <svg className="seasonal-web seasonal-web--tl" viewBox="0 0 150 150">{web}</svg>
+      <svg className="seasonal-web seasonal-web--br" viewBox="0 0 150 150">{web}</svg>
+      <div className="pumpkin-patch">
+        <Pumpkin className="pumpkin pumpkin--front" />
+        <Pumpkin className="pumpkin pumpkin--back" />
+      </div>
+    </div>
+  )
+}
+
+function HummingbirdField({ seasonal }) {
   return (
     <div className="hb-field" aria-hidden="true">
       <Wing className="hb hb-1" />
@@ -452,6 +527,12 @@ function HummingbirdField() {
       <Wing className="hb hb-3" />
       <Wing className="hb hb-4" />
       <Wing className="hb hb-5" />
+      {seasonal === 'halloween' && (
+        <>
+          <Bat className="hb hb-bat hb-bat-1" />
+          <Bat className="hb hb-bat hb-bat-2" />
+        </>
+      )}
     </div>
   )
 }
@@ -493,6 +574,7 @@ export default function App() {
     () => typeof window === 'undefined' || !window.matchMedia('(prefers-reduced-motion: reduce)').matches
   )
   const audioRef = useRef(null)
+  const seasonal = useMemo(() => getSeasonalTheme(), [])
 
   const handleEnter = () => {
     setEntered(true)
@@ -569,9 +651,10 @@ export default function App() {
   return (
     <>
       <audio ref={audioRef} src="/audio/relaxing-music.mp3" loop preload="auto" />
-      <HummingbirdField />
+      <HummingbirdField seasonal={seasonal} />
       {showIntro && <IntroSplash onFinish={() => setShowIntro(false)} />}
       {!showIntro && !entered && <EntryGate onEnter={handleEnter} />}
+      {!showIntro && <SeasonalCorners seasonal={seasonal} />}
       {entered && (
         <button
           className="sound-toggle"

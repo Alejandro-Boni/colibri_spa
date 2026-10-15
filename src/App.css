@@ -670,6 +670,40 @@ input:focus-visible {
   height: 24px;
 }
 
+.seasonal-corners {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.seasonal-web {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  color: var(--gold-2);
+  opacity: 0.38;
+}
+
+.seasonal-web--tl {
+  top: 0;
+  left: 0;
+}
+
+.seasonal-web--br {
+  bottom: 0;
+  right: 0;
+  transform: rotate(180deg);
+}
+
+@media (max-width: 640px) {
+  .seasonal-web {
+    width: 72px;
+    height: 72px;
+    opacity: 0.32;
+  }
+}
+
 .hb-field {
   position: fixed;
   inset: 0;
@@ -710,6 +744,94 @@ input:focus-visible {
 .hb-3 { animation: fly-across 26s linear infinite; animation-delay: 11s; }
 .hb-4 { animation: fly-across-alt 32s linear infinite; animation-delay: 16s; width: 18px; height: 18px; }
 .hb-5 { animation: fly-across 24s linear infinite; animation-delay: 20s; }
+
+@keyframes flutter-across {
+  0% { transform: translate(-10vw, 75vh) scale(0.55) rotate(-4deg); opacity: 0; }
+  8% { opacity: 0.6; }
+  28% { transform: translate(28vw, 30vh) scale(0.8) rotate(10deg); }
+  50% { transform: translate(52vw, 55vh) scale(0.6) rotate(-10deg); }
+  72% { transform: translate(76vw, 22vh) scale(0.8) rotate(6deg); }
+  92% { opacity: 0.6; }
+  100% { transform: translate(112vw, 48vh) scale(0.55) rotate(-4deg); opacity: 0; }
+}
+
+.hb-bat {
+  width: 36px;
+  height: 36px;
+  color: var(--gold-1);
+  filter: drop-shadow(0 0 5px rgba(243, 217, 139, 0.55));
+}
+
+.hb-bat-1 {
+  animation: flutter-across 26s linear infinite;
+  animation-delay: 2s;
+}
+
+.hb-bat-2 {
+  width: 28px;
+  height: 28px;
+  animation: flutter-across 31s linear infinite;
+  animation-delay: 15s;
+  opacity: 0.85;
+}
+
+.pumpkin-patch {
+  position: absolute;
+  left: 18px;
+  bottom: 80px;
+  width: 110px;
+  height: 80px;
+}
+
+.pumpkin {
+  position: absolute;
+  bottom: 0;
+  color: var(--gold-2);
+}
+
+.pumpkin--front {
+  left: 0;
+  width: 70px;
+  height: 78px;
+}
+
+.pumpkin--back {
+  left: 52px;
+  width: 46px;
+  height: 51px;
+  opacity: 0.85;
+}
+
+.pumpkin-face {
+  opacity: 0.9;
+  filter: drop-shadow(0 0 4px rgba(243, 217, 139, 0.85)) drop-shadow(0 0 10px rgba(201, 162, 39, 0.6));
+  animation: pumpkin-flicker 3.2s ease-in-out infinite;
+}
+
+.pumpkin--back .pumpkin-face {
+  animation-delay: 0.6s;
+}
+
+@keyframes pumpkin-flicker {
+  0%, 100% { opacity: 0.85; }
+  8% { opacity: 0.65; }
+  18% { opacity: 0.95; }
+  32% { opacity: 0.75; }
+  45% { opacity: 1; }
+  60% { opacity: 0.8; }
+  78% { opacity: 0.92; }
+}
+
+@media (max-width: 640px) {
+  .pumpkin-patch {
+    width: 86px;
+    height: 64px;
+    left: 14px;
+    bottom: 76px;
+  }
+  .pumpkin--front { width: 56px; height: 62px; }
+  .pumpkin--back { left: 42px; width: 36px; height: 40px; }
+}
 
 .social-row {
   display: flex;
