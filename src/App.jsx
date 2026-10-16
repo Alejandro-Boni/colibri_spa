@@ -482,9 +482,37 @@ const Pumpkin = ({ className }) => (
   </svg>
 )
 
+const Moon = ({ className }) => (
+  <svg viewBox="0 0 200 200" className={className} xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="moon-glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#f3d98b" stopOpacity="0.45" />
+        <stop offset="60%" stopColor="#c9a227" stopOpacity="0.12" />
+        <stop offset="100%" stopColor="#c9a227" stopOpacity="0" />
+      </radialGradient>
+    </defs>
+    <circle cx="100" cy="100" r="95" fill="url(#moon-glow)" className="moon-halo" />
+    <path
+      d="M 120,30 a 70,70 0 1,0 0,140 a 55,70 0 1,1 0,-140 Z"
+      fill="#f3d98b"
+      opacity="0.92"
+    />
+  </svg>
+)
+
 function SeasonalCorners({ seasonal }) {
+  const embers = useMemo(
+    () =>
+      Array.from({ length: 5 }).map((_, i) => ({
+        id: i,
+        left: `${8 + i * 22 + Math.random() * 10}px`,
+        delay: `${Math.random() * 3.6}s`,
+        duration: `${3.2 + Math.random() * 1.6}s`,
+      })),
+    []
+  )
   if (seasonal !== 'halloween') return null
-  const web = (
+  const webLines = (
     <g stroke="currentColor" strokeWidth="1" fill="none">
       <line x1="0" y1="0" x2="150" y2="0" />
       <line x1="0" y1="0" x2="130" y2="55" />
@@ -495,42 +523,72 @@ function SeasonalCorners({ seasonal }) {
       <path d="M 75,0 Q 65,65 0,75" />
       <path d="M 110,0 Q 95,95 0,110" />
       <path d="M 150,0 Q 120,120 0,150" />
-      <g transform="translate(55,70)" strokeWidth="1.2" fill="currentColor">
-        <ellipse cx="0" cy="0" rx="4" ry="5" />
-        <circle cx="0" cy="-6" r="2.4" />
-        <line x1="-6" y1="-2" x2="-10" y2="-6" />
-        <line x1="-6" y1="1" x2="-11" y2="2" />
-        <line x1="-6" y1="4" x2="-10" y2="9" />
-        <line x1="6" y1="-2" x2="10" y2="-6" />
-        <line x1="6" y1="1" x2="11" y2="2" />
-        <line x1="6" y1="4" x2="10" y2="9" />
-      </g>
+    </g>
+  )
+  const spider = (
+    <g transform="translate(55,70)" stroke="currentColor" strokeWidth="1.2" fill="currentColor">
+      <animateTransform
+        attributeName="transform"
+        type="translate"
+        values="55,70; 55,70; 32,42; 55,70; 72,92; 55,70; 55,70"
+        keyTimes="0; 0.35; 0.5; 0.65; 0.8; 0.92; 1"
+        dur="7s"
+        repeatCount="indefinite"
+      />
+      <ellipse cx="0" cy="0" rx="4" ry="5" />
+      <circle cx="0" cy="-6" r="2.4" />
+      <line x1="-6" y1="-2" x2="-10" y2="-6" />
+      <line x1="-6" y1="1" x2="-11" y2="2" />
+      <line x1="-6" y1="4" x2="-10" y2="9" />
+      <line x1="6" y1="-2" x2="10" y2="-6" />
+      <line x1="6" y1="1" x2="11" y2="2" />
+      <line x1="6" y1="4" x2="10" y2="9" />
     </g>
   )
   return (
     <div className="seasonal-corners" aria-hidden="true">
-      <svg className="seasonal-web seasonal-web--tl" viewBox="0 0 150 150">{web}</svg>
-      <svg className="seasonal-web seasonal-web--br" viewBox="0 0 150 150">{web}</svg>
+      <Moon className="moon" />
+      <svg className="seasonal-web seasonal-web--tl" viewBox="0 0 150 150">
+        {webLines}
+        {spider}
+      </svg>
+      <svg className="seasonal-web seasonal-web--br" viewBox="0 0 150 150">
+        {webLines}
+        {spider}
+      </svg>
       <div className="pumpkin-patch">
         <Pumpkin className="pumpkin pumpkin--front" />
         <Pumpkin className="pumpkin pumpkin--back" />
+        <Pumpkin className="pumpkin pumpkin--side" />
+        {embers.map((e) => (
+          <span
+            key={e.id}
+            className="ember"
+            style={{ left: e.left, animationDelay: e.delay, animationDuration: e.duration }}
+          />
+        ))}
       </div>
     </div>
   )
 }
 
 function HummingbirdField({ seasonal }) {
+  const isHalloween = seasonal === 'halloween'
   return (
     <div className="hb-field" aria-hidden="true">
-      <Wing className="hb hb-1" />
-      <Wing className="hb hb-2" />
-      <Wing className="hb hb-3" />
-      <Wing className="hb hb-4" />
-      <Wing className="hb hb-5" />
-      {seasonal === 'halloween' && (
+      {isHalloween ? (
         <>
           <Bat className="hb hb-bat hb-bat-1" />
           <Bat className="hb hb-bat hb-bat-2" />
+          <Bat className="hb hb-bat hb-bat-3" />
+        </>
+      ) : (
+        <>
+          <Wing className="hb hb-1" />
+          <Wing className="hb hb-2" />
+          <Wing className="hb hb-3" />
+          <Wing className="hb hb-4" />
+          <Wing className="hb hb-5" />
         </>
       )}
     </div>

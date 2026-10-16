@@ -696,11 +696,41 @@ input:focus-visible {
   transform: rotate(180deg);
 }
 
+.moon {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 92px;
+  height: 92px;
+  animation: moon-pulse 5s ease-in-out infinite;
+}
+
+.moon-halo {
+  animation: moon-halo-pulse 5s ease-in-out infinite;
+}
+
+@keyframes moon-pulse {
+  0%, 100% { opacity: 0.92; }
+  50% { opacity: 1; }
+}
+
+@keyframes moon-halo-pulse {
+  0%, 100% { opacity: 0.8; transform-origin: center; transform: scale(1); }
+  50% { opacity: 1; transform-origin: center; transform: scale(1.08); }
+}
+
 @media (max-width: 640px) {
   .seasonal-web {
     width: 72px;
     height: 72px;
     opacity: 0.32;
+  }
+
+  .moon {
+    width: 68px;
+    height: 68px;
+    top: 18px;
+    right: 18px;
   }
 }
 
@@ -763,24 +793,60 @@ input:focus-visible {
 }
 
 .hb-bat-1 {
-  animation: flutter-across 26s linear infinite;
-  animation-delay: 2s;
+  animation: flutter-across 11s linear infinite;
+  animation-delay: 0s;
 }
 
 .hb-bat-2 {
   width: 28px;
   height: 28px;
-  animation: flutter-across 31s linear infinite;
-  animation-delay: 15s;
+  animation: flutter-across 13s linear infinite;
+  animation-delay: 4.5s;
   opacity: 0.85;
+}
+
+.hb-bat-3 {
+  width: 30px;
+  height: 30px;
+  animation: moon-pass 9s linear infinite;
+  animation-delay: 2.5s;
+  opacity: 0.95;
+}
+
+@keyframes moon-pass {
+  0% { transform: translate(118vw, 14vh) scale(0.7) rotate(-6deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  45% { transform: translate(78vw, 11vh) scale(1) rotate(4deg); }
+  55% { transform: translate(68vw, 13vh) scale(1) rotate(-4deg); }
+  90% { opacity: 0.9; }
+  100% { transform: translate(-10vw, 20vh) scale(0.65) rotate(6deg); opacity: 0; }
 }
 
 .pumpkin-patch {
   position: absolute;
   left: 18px;
   bottom: 80px;
-  width: 110px;
+  width: 140px;
   height: 80px;
+}
+
+.ember {
+  position: absolute;
+  bottom: 30px;
+  width: 2.5px;
+  height: 2.5px;
+  border-radius: 50%;
+  background: var(--gold-1);
+  box-shadow: 0 0 4px 1px rgba(243, 217, 139, 0.8);
+  opacity: 0;
+  animation: ember-rise 4s ease-in infinite;
+}
+
+@keyframes ember-rise {
+  0% { transform: translate(0, 0); opacity: 0; }
+  12% { opacity: 0.9; }
+  70% { opacity: 0.5; }
+  100% { transform: translate(6px, -58px); opacity: 0; }
 }
 
 .pumpkin {
@@ -802,6 +868,13 @@ input:focus-visible {
   opacity: 0.85;
 }
 
+.pumpkin--side {
+  left: 96px;
+  width: 32px;
+  height: 36px;
+  opacity: 0.75;
+}
+
 .pumpkin-face {
   opacity: 0.9;
   filter: drop-shadow(0 0 4px rgba(243, 217, 139, 0.85)) drop-shadow(0 0 10px rgba(201, 162, 39, 0.6));
@@ -810,6 +883,10 @@ input:focus-visible {
 
 .pumpkin--back .pumpkin-face {
   animation-delay: 0.6s;
+}
+
+.pumpkin--side .pumpkin-face {
+  animation-delay: 1.4s;
 }
 
 @keyframes pumpkin-flicker {
@@ -824,13 +901,14 @@ input:focus-visible {
 
 @media (max-width: 640px) {
   .pumpkin-patch {
-    width: 86px;
+    width: 110px;
     height: 64px;
     left: 14px;
     bottom: 76px;
   }
   .pumpkin--front { width: 56px; height: 62px; }
   .pumpkin--back { left: 42px; width: 36px; height: 40px; }
+  .pumpkin--side { left: 76px; width: 26px; height: 29px; }
 }
 
 .social-row {
